@@ -14,15 +14,18 @@ const port = 3000;
 app.use("/api/v1", auth)
 app.use("/api/v2", list)
 
-app.get("/todo",(req, res)=>{
+app.get("/",(req, res)=>{
     app.use(express.static(path.resolve(__dirname, 'frontend', 'dist')));
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
 })
+app.get("/todo", (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+});
+app.use((req, res, next) => {
+    console.log(`Request URL: ${req.url}`);
+    next();
+});
 
-// app.use((req, res, next) => {
-//     console.log(`Request URL: ${req.url}`);
-//     next();
-// });
 
 
 app.listen(port,()=>{
