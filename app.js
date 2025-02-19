@@ -8,16 +8,22 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
-port = 3000;
+const port = 3000;
 
 
 app.use("/api/v1", auth)
 app.use("/api/v2", list)
 
-app.get("/",(req, res)=>{
+app.get("/todo",(req, res)=>{
     app.use(express.static(path.resolve(__dirname, 'frontend', 'dist')));
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
 })
+
+// app.use((req, res, next) => {
+//     console.log(`Request URL: ${req.url}`);
+//     next();
+// });
+
 
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
